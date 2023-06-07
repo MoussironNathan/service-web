@@ -1,0 +1,18 @@
+{% load extras %}
+{% include 'base.html' %}
+
+{% block content %}
+    <h1>Liste des films</h1>
+    <div class="d-flex flex-row flex-wrap justify-content-evenly align-items-center">
+        {% for movie in listMovie %}
+            <div class="card" style="width: 18rem;">
+                <img src="http://image.tmdb.org/t/p/w500/{{ movie|get_item:'image' }}" class="card-img-top" alt="img film">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie|get_item:'title' }}</h5>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
