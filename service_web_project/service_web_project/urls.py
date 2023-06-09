@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
     path('home/<int:page>', views.home, name='home'),
+    path('home/movie/<int:id>', views.movie_details, name='details'),
+    path('home/movie/addlike/<int:id>', views.addLike, name='addLike'),
+    path('home/movie/dislike/<int:id>', views.addLike, name='disLike'),
 ]

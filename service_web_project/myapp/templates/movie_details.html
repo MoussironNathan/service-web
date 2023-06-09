@@ -1,0 +1,39 @@
+{% load extras %}
+{% load static %}
+{% include 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'addLike' donnees|get_item:'id' %}" class="float-start text-decoration-none text-white mt-2 fs-2">{{ donnees|get_item:'likes' }} <i class="fa-solid fa-thumbs-up"></i></a>
+    <h1 class="text-center">{{ donnees|get_item:'title' }}</h1>
+    {% if donnees|get_item:'adult' %}
+        <img src="{% static 'img/18.jpg' %}" class="float-end" alt="img film">
+    {% endif %}
+    <div class="d-flex flex-row justify-content-around mt-5">
+        {% if donnees|get_item:'poster_path' %}
+            <img src="http://image.tmdb.org/t/p/w500/{{ donnees|get_item:'poster_path' }}" class="w-25 align-self-center" alt="img film">
+        {% else %}
+            <img src="{% static 'img/poster-holder.jpg' %}" class="w-25 align-self-center" alt="img film">
+        {% endif %}
+        <div class="w-25 align-self-center">
+            <h3>Synopsis :</h3>
+            <p>{{ donnees|get_item:'overview' }}</p>
+            <h3>Genres:</h3>
+            <ul>
+                {% if not donnees|get_item:'genres' %}
+                    <li>Aucun genre enregistré pour ce film</li>
+                {% endif %}
+                {% for genre in donnees|get_item:'genres' %}
+                    <li>{{ genre|get_item:'name' }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Langues disponibles:</h3>
+            <ul>
+                {% for l in donnees|get_item:'spoken_languages' %}
+                    <li>{{ l|get_item:'name' }}</li>
+                {% endfor %}
+            </ul>
+            <p><b>Date de sortie:</b> {{ donnees|get_item:'release_date' }}</p>
+            <p><b>Durée:</b> {{ donnees|get_item:'runtime' }}(min)</p>
+        </div>
+    </div>
+{% endblock %}
