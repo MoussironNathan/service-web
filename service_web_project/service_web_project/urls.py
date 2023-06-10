@@ -21,8 +21,13 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
-    path('home/<int:page>', views.home, name='home'),
-    path('home/movie/<int:id>', views.movie_details, name='details'),
+    path('home/search=<str:recherche>', views.home, name='home'),
+    path('home/page=<int:page>', views.home, name='home'),
+    path('home/movie/<int:id>', views.movie_details, name='movie_details'),
     path('home/movie/addlike/<int:id>', views.addLike, name='addLike'),
     path('home/movie/dislike/<int:id>', views.addLike, name='disLike'),
+    path('home/peoples/', views.peoples, name='peoples'),
+    path('home/peoples/search=<str:recherche>', views.peoples, name='peoples'),
+    path('home/peoples/page=<int:page>', views.peoples, name='peoples'),
+    path('home/peoples/people/<int:id>', views.people_details, name='people_details'),
 ]

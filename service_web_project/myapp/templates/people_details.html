@@ -1,0 +1,33 @@
+{% load extras %}
+{% load static %}
+{% include 'base.html' %}
+{% block js %}
+    <script>
+        searchButton = document.getElementById("searchButton");
+        searchBar = document.getElementById("searchBar");
+
+        searchBar.placeholder = "Rechercher une personne"
+        let url = "{% url 'peoples' %}";
+        searchButton.dataset.url = url
+    </script>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">{{ donnees|get_item:'name' }}</h1>
+    <div class="d-flex flex-row justify-content-around mt-5">
+        {% if donnees|get_item:'profile_path' %}
+            <img src="http://image.tmdb.org/t/p/w500/{{ donnees|get_item:'profile_path' }}" class="w-25 align-self-center" alt="img person">
+        {% else %}
+            <img src="{% static 'img/poster-holder.jpg' %}" class="w-25 align-self-center" alt="img person">
+        {% endif %}
+        <div class="w-50 align-self-center">
+            <h3>Biographie :</h3>
+            <p>{{ donnees|get_item:'biography' }}</p>
+            <p><b>Date de naissance:</b> {{ donnees|get_item:'birthday' }}</p>
+            {% if donnees|get_item:'deathday' %}
+                <p><b>Date de décès:</b> {{ donnees|get_item:'deathday' }}</p>
+            {% endif %}
+            <p><b>Lieu de naissance:</b> {{ donnees|get_item:'place_of_birth' }}</p>
+            <p><b>Travaille dans le domaine:</b> {{ donnees|get_item:'known_for_department' }}</p>
+        </div>
+    </div>
+{% endblock %}

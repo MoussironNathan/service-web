@@ -1,7 +1,16 @@
 {% load extras %}
 {% load static %}
 {% include 'base.html' %}
+{% block js %}
+    <script>
+        searchButton = document.getElementById("searchButton");
+        searchBar = document.getElementById("searchBar");
 
+        searchBar.placeholder = "Rechercher un film"
+        let url = "{% url 'home' %}";
+        searchButton.dataset.url = url
+    </script>
+{% endblock %}
 {% block content %}
     <a href="{% url 'addLike' donnees|get_item:'id' %}" class="float-start text-decoration-none text-white mt-2 fs-2">{{ donnees|get_item:'likes' }} <i class="fa-solid fa-thumbs-up"></i></a>
     <h1 class="text-center">{{ donnees|get_item:'title' }}</h1>

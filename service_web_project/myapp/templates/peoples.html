@@ -1,0 +1,32 @@
+{% load extras %}
+{% load static %}
+{% include 'base.html' %}
+{% block js %}
+    <script>
+        searchButton = document.getElementById("searchButton");
+        searchBar = document.getElementById("searchBar");
+
+        searchBar.placeholder = "Rechercher une personne"
+        let url = "{% url 'peoples' %}";
+        searchButton.dataset.url = url
+    </script>
+{% endblock %}
+{% block content %}
+    <h1 class="w-auto h-auto text-center">Liste des personnes dans le monde du cinéma</h1>
+    <div class="d-flex flex-row flex-wrap justify-content-evenly align-items-center">
+        {% for person in listPeople %}
+            <div class="card mt-5" style="width: 18rem;">
+                {% if person|get_item:'profile_path' %}
+                    <img src="http://image.tmdb.org/t/p/w500/{{ person|get_item:'profile_path' }}" class="card-img-top" style="width: auto; height: 423px;" alt="img person">
+                {% else %}
+                    <img src="{% static 'img/poster-holder.jpg' %}" class="card-img-top" alt="img person">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title d-inline-block text-black title-home-page" title="{{ person|get_item:'name' }}">{{ person|get_item:'name' }}</h5>
+                    <a href="{% url 'people_details' person|get_item:'id' %}" class="btn btn-primary mt-2 d-block">Voir les détails</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
